@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>neo4j + express</title>
+</head>
+<body>
+    <input type="text" placeholder="Person 1" id="person_1">
+    <input type="text" placeholder="Person 1" id="person_2">
+    <button type="submit" id="btn">Find Shortest Path</button>
+
+    <pre>
+        <code id="code"></code>
+    </pre>
+
+    <script>
+
+        const person_1 = document.getElementById("person_1");
+        const person_2 = document.getElementById("person_2");
+        const btn = document.getElementById("btn");
+        const code = document.getElementById("code");
+
+        btn.addEventListener("click", async (e) => {
+            e.preventDefault();
+
+            code.innerText = "Loading...";
+
+            const res = await fetch(`/search?person_1=${encodeURIComponent(person_1.value)}&&person_2=${encodeURIComponent(person_2.value)}`);
+            const res_data = await res.json();
+
+            code.innerText = "\n" + JSON.stringify(res_data, "", 4);
+
+        });
+
+    </script>
+</body>
+</html>
